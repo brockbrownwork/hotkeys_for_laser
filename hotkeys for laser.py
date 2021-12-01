@@ -22,6 +22,16 @@ def solve_rotational_shenanigans():
     sleep(0.3)
     search_and_click("right_arrow.png")
 
+def flip_stamp():
+    if not found("selected_layout.png"):
+        search_and_click("layout.png")
+    search_and_click("alpha.png", below = 20, double = True)
+    pyautogui.hotkey("ctrl", "a")
+    pyautogui.hotkey("ctrl", "c")
+    copy(str(int(paste()) + 180))
+    pyautogui.hotkey("ctrl", "v")
+    pyautogui.hotkey("enter")
+
 currently_down = False
 while True:
     if keyboard.is_pressed('ctrl + d') and not currently_down:
@@ -41,14 +51,7 @@ while True:
     elif not keyboard.is_pressed('ctrl + d') and currently_down:
         currently_down = False
     if keyboard.is_pressed("ctrl + shift + f"):
-        if not found("selected_layout.png"):
-            search_and_click("layout.png")
-        search_and_click("alpha.png", below = 20, double = True)
-        pyautogui.hotkey("ctrl", "a")
-        pyautogui.hotkey("ctrl", "c")
-        copy(str(int(paste()) + 180))
-        pyautogui.hotkey("ctrl", "v")
-        pyautogui.hotkey("enter")
+        flip_stamp()
     for key in settings.keys():
         if keyboard.is_pressed('ctrl + {0}'.format(key)):
             print("hotkey pressed:", key)
