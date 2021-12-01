@@ -60,13 +60,16 @@ def open_template(key):
 
 currently_down = False
 while True:
+    # toggle the door if ctrl + d is pressed
     if keyboard.is_pressed('ctrl + d') and not currently_down:
         currently_down = True
         toggle_door()
     elif not keyboard.is_pressed('ctrl + d') and currently_down:
         currently_down = False
+    # flip the stamp if ctrl + shift + f is pressed
     if keyboard.is_pressed("ctrl + shift + f"):
         flip_stamp()
+    # open respective template if ctrl + [custom character] is pressed
     for key in settings.keys():
         if keyboard.is_pressed('ctrl + {0}'.format(key)):
             open_template(key)
