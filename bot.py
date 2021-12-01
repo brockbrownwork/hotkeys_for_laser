@@ -17,18 +17,18 @@ def show_desktop():
 # pyautogui.locateOnScreen(image_name) # returns position of the image
 # if it's not there then just return false
 
-def search_and_click(image_name, double = False, go_back = True):
+def search_and_click(image_name, double = False, go_back = True, below = 0):
     original_position = pyautogui.position()
     found_it = pyautogui.locateOnScreen(image_name)
     while found_it == None:
         found_it = pyautogui.locateOnScreen(image_name)
     x, y = found_it[0], found_it[1]
-    pyautogui.moveTo(x, y)
+    pyautogui.moveTo(x, y + below)
     time.sleep(0.1)
     pyautogui.click()
     time.sleep(0.1)
     if double:
-        click(x=x, y=y)
+        click(x=x, y=y + below)
     if go_back:
         pyautogui.moveTo(*original_position)
 def find(image_name):
