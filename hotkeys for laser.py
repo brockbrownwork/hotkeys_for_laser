@@ -1,7 +1,7 @@
 from bot import search_and_click, found, find
 import keyboard
 from time import sleep
-from pyperclip import copy
+from pyperclip import copy, paste
 import pyautogui
 
 settings = {}
@@ -40,6 +40,15 @@ while True:
             search_and_click("closed.png")
     elif not keyboard.is_pressed('ctrl + d') and currently_down:
         currently_down = False
+    if keyboard.is_pressed("ctrl + shift + f"):
+        if not found("selected_layout.png"):
+            search_and_click("layout.png")
+        search_and_click("alpha.png", below = 20, double = True)
+        pyautogui.hotkey("ctrl", "a")
+        pyautogui.hotkey("ctrl", "c")
+        copy(str(int(paste()) + 180))
+        pyautogui.hotkey("ctrl", "v")
+        pyautogui.hotkey("enter")
     for key in settings.keys():
         if keyboard.is_pressed('ctrl + {0}'.format(key)):
             print("hotkey pressed:", key)
