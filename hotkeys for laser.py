@@ -29,6 +29,7 @@ def flip_stamp():
     pyautogui.hotkey("ctrl", "a")
     pyautogui.hotkey("ctrl", "c")
     copy(str(int(paste()) + 180))
+    sleep(0.1)
     pyautogui.hotkey("ctrl", "v")
     pyautogui.hotkey("enter")
 
