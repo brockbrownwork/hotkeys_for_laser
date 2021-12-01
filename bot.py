@@ -35,7 +35,7 @@ def find(image_name):
     found_it = pyautogui.locateOnScreen(image_name)
     while found_it == None:
         found_it = pyautogui.locateOnScreen(image_name)
-        print("looking")
+        print("looking for {0}...".format(image_name))
     x, y = found_it[0], found_it[1]
     return x, y
 
