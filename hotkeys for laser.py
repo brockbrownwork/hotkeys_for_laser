@@ -32,22 +32,25 @@ def flip_stamp():
     pyautogui.hotkey("ctrl", "v")
     pyautogui.hotkey("enter")
 
+def toggle_door():
+    if found("question_door.png"):
+        print("found question door")
+        search_and_click("question_door.png")
+        search_and_click("door.png")
+        solve_rotational_shenanigans()
+    elif found("door.png"):
+        print("found open door")
+        search_and_click("door.png")
+        solve_rotational_shenanigans()
+    elif found("closed.png"):
+        print("found closed!")
+        search_and_click("closed.png")
+
 currently_down = False
 while True:
     if keyboard.is_pressed('ctrl + d') and not currently_down:
         currently_down = True
-        if found("question_door.png"):
-            print("found question door")
-            search_and_click("question_door.png")
-            search_and_click("door.png")
-            solve_rotational_shenanigans()
-        elif found("door.png"):
-            print("found open door")
-            search_and_click("door.png")
-            solve_rotational_shenanigans()
-        elif found("closed.png"):
-            print("found closed!")
-            search_and_click("closed.png")
+        toggle_door()
     elif not keyboard.is_pressed('ctrl + d') and currently_down:
         currently_down = False
     if keyboard.is_pressed("ctrl + shift + f"):
