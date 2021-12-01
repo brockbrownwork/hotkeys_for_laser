@@ -44,6 +44,8 @@ while True:
         if keyboard.is_pressed('ctrl + {0}'.format(key)):
             print("hotkey pressed:", key)
             search_and_click("file.png", go_back = False)
+            while not found("open.png"):
+                pyautogui.click()
             search_and_click("open.png", go_back = False)
             copy("C:\\Users\\ghopper\\Desktop\\stamps\\new computer\\{0}".format(settings[key]))
             pyautogui.hotkey("ctrl", "v")
