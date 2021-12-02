@@ -33,6 +33,22 @@ def search_and_click(image_name, double = False, go_back = True, below = 0):
         click(x=x, y=y + below)
     if go_back:
         pyautogui.moveTo(*original_position)
+
+def click_if_exists(image_name, double = False, go_back = True, below = 0):
+    original_position = pyautogui.position()
+    found_it = pyautogui.locateOnScreen(image_name)
+    if found_it != None:
+        print("found", image_name)
+        x, y = found_it[0], found_it[1]
+        pyautogui.moveTo(x, y + below)
+        time.sleep(0.1)
+        pyautogui.click()
+        time.sleep(0.1)
+        if double:
+            click(x=x, y=y + below)
+        if go_back:
+            pyautogui.moveTo(*original_position)
+
 def find(image_name):
     found_it = pyautogui.locateOnScreen(image_name)
     while found_it == None:
