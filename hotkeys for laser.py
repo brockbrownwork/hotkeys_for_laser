@@ -77,4 +77,5 @@ while True:
     # start the job if the user hits "ctrl + enter"
     if keyboard.is_pressed("ctrl + enter".format(key)):
         click_if_exists("images\\execute.png")
+        click_if_exists("images\\ok.PNG")
         click_if_exists("images\\start.png")
