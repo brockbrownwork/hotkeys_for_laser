@@ -74,3 +74,7 @@ while True:
     for key in settings.keys():
         if keyboard.is_pressed('ctrl + {0}'.format(key)):
             open_template(key)
+    # start the job if the user hits "ctrl + enter"
+    if keyboard.is_pressed("ctrl + enter".format(key)):
+        click_if_exists("images\\execute.png")
+        click_if_exists("images\\start.png")
