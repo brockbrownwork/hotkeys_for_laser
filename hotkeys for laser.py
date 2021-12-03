@@ -51,16 +51,15 @@ def toggle_door():
         search_and_click("images\\closed.png")
 
 def open_template(key):
-    while keyboard.is_pressed('ctrl') or any([keyboard.is_pressed(str(i)) for i in range(10)]):
-        pass
-    pyautogui.hotkey("alt", "f")
-    sleep(0.1)
-    pyautogui.hotkey("o")
+    print("hotkey pressed:", key)
+    search_and_click("images\\file.png", go_back = False)
+    while not found("images\\open.png"):
+        pyautogui.click()
+    search_and_click("images\\open.png", go_back = False)
     copy("C:\\Users\\ghopper\\Desktop\\stamps\\new computer\\{0}".format(settings[key]))
     pyautogui.hotkey("ctrl", "v")
     pyautogui.hotkey("enter")
     search_and_click("images\\surface.png")
-    sleep(0.1)
     search_and_click("images\\inside_diameter.png")
 
 currently_down = False
