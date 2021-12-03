@@ -34,7 +34,7 @@ def search_and_click(image_name, double = False, go_back = True, below = 0):
     if go_back:
         pyautogui.moveTo(*original_position)
 
-def click_if_exists(image_name, double = False, go_back = True, below = 0, timeout = None):
+def click_if_exists(image_name, double = False, go_back = True, below = 0):
     original_position = pyautogui.position()
     found_it = pyautogui.locateOnScreen(image_name)
     if found_it != None:
