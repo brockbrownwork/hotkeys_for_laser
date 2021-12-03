@@ -69,6 +69,7 @@ while True:
     if time() - start >= 60 * 5:
         start = time()
         pyautogui.hotkey("F15")
+        print("pressed F15 to stay awake")
     # toggle the door if ctrl + d is pressed
     if keyboard.is_pressed('ctrl + d') and not currently_down:
         currently_down = True
