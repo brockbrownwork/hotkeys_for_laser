@@ -20,7 +20,7 @@ def solve_rotational_shenanigans():
     search_and_click("images\\show_position_start.png")
     search_and_click("images\\left_arrow.png")
     sleep(0.3)
-    search_and_click("images\\right_arrow.png")
+    search_and_click("images\\right_arrow.png", go_back = False)
 
 def flip_stamp():
     if not found("images\\selected_layout.png"):
