@@ -1,6 +1,6 @@
 from bot import search_and_click, found, find, click_if_exists
 import keyboard
-from time import sleep
+from time import sleep, time
 from pyperclip import copy, paste
 import pyautogui
 
@@ -63,7 +63,12 @@ def open_template(key):
     search_and_click("images\\inside_diameter.png")
 
 currently_down = False
+start = time()
 while True:
+    # make sure that the computer stays awake by pressing F15 every 10 minutes
+    if time() - start >= 60 * 5:
+        start = time()
+        pyautogui.hotkey("F15")
     # toggle the door if ctrl + d is pressed
     if keyboard.is_pressed('ctrl + d') and not currently_down:
         currently_down = True
