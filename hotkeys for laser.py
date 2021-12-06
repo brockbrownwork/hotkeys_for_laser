@@ -16,6 +16,7 @@ print("Welcome to LZR Hotkeys")
 print("ctrl + d to toggle the door")
 print("ctrl + f to flip a stamp 180 degrees")
 print("ctrl + enter to send the job")
+print("ctrl + r to rotate")
 print("ctrl + [a number] to open a template (see label below keyboard)")
 
 def solve_rotational_shenanigans():
