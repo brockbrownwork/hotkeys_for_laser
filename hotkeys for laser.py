@@ -12,6 +12,12 @@ with open("settings.txt") as f:
         key, file_name = line.split(":")
         settings[key] = file_name
 
+print("Welcome to LZR Hotkeys")
+print("ctrl + d to toggle the door")
+print("ctrl + f to flip a stamp 180 degrees")
+print("ctrl + enter to send the job")
+print("ctrl + [a number] to open a template (see label below keyboard)")
+
 def solve_rotational_shenanigans():
     find("images\\closed.png")
     sleep(0.5)
