@@ -1,5 +1,4 @@
 from bot import search_and_click, found, find, click_if_exists
-from win32_for_dummies import activate_window
 import keyboard
 from time import sleep, time
 from pyperclip import copy, paste
@@ -58,7 +57,6 @@ def toggle_door():
         search_and_click("images\\closed.png")
 
 def open_template(key):
-    activate_window("EasyGUI")
     print("hotkey pressed:", key)
     search_and_click("images\\file.png", go_back = False)
     while not found("images\\open.png"):
