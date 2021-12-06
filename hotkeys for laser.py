@@ -33,7 +33,11 @@ def change_alpha():
     if not found("images\\selected_layout.png"):
         search_and_click("images\\layout.png")
     search_and_click("images\\alpha.png", below = 20, double = True)
+    copy(pyautogui.prompt())
     pyautogui.hotkey("ctrl", "a")
+    pyautogui.hotkey("ctrl", "v")
+    click_if_exists("images\\execute.png")
+    click_if_exists("images\\show_position_start.png")
 
 def flip_stamp():
     change_alpha()
