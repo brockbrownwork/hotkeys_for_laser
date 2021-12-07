@@ -14,7 +14,6 @@ with open("settings.txt") as f:
         settings[key] = file_name
 
 print("Welcome to LZR Hotkeys")
-print("f2 to search for a template")
 print("ctrl + d to toggle the door")
 print("ctrl + shift + f to flip a stamp 180 degrees")
 print("ctrl + enter to send the job")
@@ -94,7 +93,7 @@ def open_template(key):
     print("hotkey pressed:", key)
     search_and_click("images\\file.png", go_back = False)
     while not found("images\\open.png"):
-        pyautogui.click()
+        click_if_exists("images\\file.png")
     search_and_click("images\\open.png", go_back = False)
     copy("C:\\Users\\ghopper\\Desktop\\stamps\\new computer\\{0}".format(settings[key]))
     pyautogui.hotkey("ctrl", "v")
