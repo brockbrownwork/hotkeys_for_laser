@@ -34,7 +34,7 @@ def search():
     files = listdir("C:\\Users\\ghopper\\Desktop\\stamps\\new computer")
     query = pyautogui.prompt(text = "What template do you need?")
     found_file = ''
-    if query == None:
+    if not query:
         return None
     for file in files:
         if query.lower() in file.lower():
