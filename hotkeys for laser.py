@@ -18,7 +18,7 @@ print("ctrl + d to toggle the door")
 print("ctrl + shift + f to flip a stamp 180 degrees")
 print("ctrl + enter to send the job")
 print("ctrl + r to rotate")
-print("ctrl + t to change the text")
+print("ctrl + shift + t to change the text")
 print("ctrl + [a number] to open a template (see label below keyboard)\n")
 
 def solve_rotational_shenanigans():
@@ -143,5 +143,5 @@ while True:
         change_alpha()
     if keyboard.is_pressed("f2"):
         search()
-    if keyboard.is_pressed("ctrl + t"):
+    if keyboard.is_pressed("ctrl + shift + t"):
         change_text()
