@@ -93,7 +93,7 @@ def open_template(key):
     print("hotkey pressed:", key)
     search_and_click("images\\file.png", go_back = False)
     while not found("images\\open.png"):
-        click_if_exists("images\\file.png")
+        pyautogui.click()
     search_and_click("images\\open.png", go_back = False)
     copy("C:\\Users\\ghopper\\Desktop\\stamps\\new computer\\{0}".format(settings[key]))
     pyautogui.hotkey("ctrl", "v")
@@ -104,6 +104,7 @@ def open_template(key):
 currently_down = False
 start = time()
 while True:
+    sleep(0.05)
     # make sure that the computer stays awake by pressing F15 every 10 minutes
     if time() - start >= 60 * 5:
         start = time()
