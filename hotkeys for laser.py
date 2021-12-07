@@ -111,7 +111,8 @@ def open_template(key):
 
 def send_job():
     click_if_exists("images\\execute.png")
-    click_if_exists("images\\ok.PNG")
+    click_if_exists("images\\start.png")
+    sleep(0.3)
     click_if_exists("images\\start.png")
 
 currently_down = False
