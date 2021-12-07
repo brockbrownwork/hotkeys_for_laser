@@ -18,6 +18,7 @@ print("ctrl + d to toggle the door")
 print("ctrl + shift + f to flip a stamp 180 degrees")
 print("ctrl + enter to send the job")
 print("ctrl + r to rotate")
+print("ctrl + t to change the text")
 print("ctrl + [a number] to open a template (see label below keyboard)\n")
 
 def solve_rotational_shenanigans():
@@ -29,6 +30,11 @@ def solve_rotational_shenanigans():
     search_and_click("images\\left_arrow.png")
     sleep(0.3)
     search_and_click("images\\right_arrow.png", go_back = False)
+
+def change_text():
+    click_if_exists("images\\layout.png")
+    click_if_exists("images\\text_field.png")
+    pyautogui.hotkey("ctrl", "a")
 
 def search():
     files = listdir("C:\\Users\\ghopper\\Desktop\\stamps\\new computer")
@@ -132,3 +138,5 @@ while True:
         change_alpha()
     if keyboard.is_pressed("f2"):
         search()
+    if keyboard.is_pressed("ctrl + t"):
+        change_text()
