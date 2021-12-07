@@ -14,6 +14,7 @@ with open("settings.txt") as f:
         settings[key] = file_name
 
 print("Welcome to LZR Hotkeys")
+print("f2 to search for a template")
 print("ctrl + d to toggle the door")
 print("ctrl + shift + f to flip a stamp 180 degrees")
 print("ctrl + enter to send the job")
