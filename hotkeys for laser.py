@@ -109,6 +109,11 @@ def open_template(key):
     search_and_click("images\\surface.png")
     search_and_click("images\\inside_diameter.png")
 
+def send_job():
+    click_if_exists("images\\execute.png")
+    click_if_exists("images\\ok.PNG")
+    click_if_exists("images\\start.png")
+
 currently_down = False
 start = time()
 while True:
@@ -133,9 +138,7 @@ while True:
             open_template(key)
     # start the job if the user hits "ctrl + enter"
     if keyboard.is_pressed("ctrl + enter"):
-        click_if_exists("images\\execute.png")
-        click_if_exists("images\\ok.PNG")
-        click_if_exists("images\\start.png")
+        send_job()
     if keyboard.is_pressed("ctrl + r"):
         change_alpha()
     if keyboard.is_pressed("f2"):
