@@ -3,6 +3,7 @@ import keyboard
 from time import sleep, time
 from pyperclip import copy, paste
 import pyautogui
+from os import listdir
 
 settings = {}
 
@@ -14,10 +15,10 @@ with open("settings.txt") as f:
 
 print("Welcome to LZR Hotkeys")
 print("ctrl + d to toggle the door")
-print("ctrl + f to flip a stamp 180 degrees")
+print("ctrl + shift + f to flip a stamp 180 degrees")
 print("ctrl + enter to send the job")
 print("ctrl + r to rotate")
-print("ctrl + [a number] to open a template (see label below keyboard)")
+print("ctrl + [a number] to open a template (see label below keyboard)\n")
 
 def solve_rotational_shenanigans():
     find("images\\closed.png")
@@ -28,6 +29,28 @@ def solve_rotational_shenanigans():
     search_and_click("images\\left_arrow.png")
     sleep(0.3)
     search_and_click("images\\right_arrow.png", go_back = False)
+
+def search():
+    files = listdir("C:\\Users\\ghopper\\Desktop\\stamps\\new computer")
+    query = pyautogui.prompt(text = "What template do you need?")
+    found_file = ''
+    if query == None:
+        return None
+    for file in files:
+        if query.lower() in file.lower():
+            found_file = file
+            break
+    if found_file != '':
+        search_and_click("images\\file.png", go_back = False)
+        while not found("images\\open.png"):
+            pyautogui.click()
+        search_and_click("images\\open.png", go_back = False)
+        copy("C:\\Users\\ghopper\\Desktop\\stamps\\new computer\\{0}".format(found_file))
+        pyautogui.hotkey("ctrl", "v")
+        pyautogui.hotkey("enter")
+        search_and_click("images\\surface.png")
+        search_and_click("images\\inside_diameter.png")
+    print("")
 
 def change_alpha():
     if not found("images\\selected_layout.png"):
@@ -106,3 +129,5 @@ while True:
         click_if_exists("images\\start.png")
     if keyboard.is_pressed("ctrl + r"):
         change_alpha()
+    if keyboard.is_pressed("f2"):
+        search()
