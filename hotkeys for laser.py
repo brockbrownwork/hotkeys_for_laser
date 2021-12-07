@@ -46,6 +46,8 @@ def search():
         if query.lower() in file.lower():
             found_file = file
             break
+    if query.lower() in [i.split('.')[0].lower() for i in files]:
+        found_file = query
     if found_file != '':
         search_and_click("images\\file.png", go_back = False)
         while not found("images\\open.png"):
