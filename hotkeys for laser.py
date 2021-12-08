@@ -52,7 +52,9 @@ def search():
         search_and_click("images\\file.png", go_back = False)
         while not found("images\\open.png"):
             pyautogui.click()
-        search_and_click("images\\open.png", go_back = False)
+        sleep(0.1)
+        pyautogui.hotkey("o")
+        # search_and_click("images\\open.png", go_back = False)
         copy("C:\\Users\\ghopper\\Desktop\\stamps\\new computer\\{0}".format(found_file))
         pyautogui.hotkey("ctrl", "v")
         pyautogui.hotkey("enter")
@@ -102,7 +104,9 @@ def open_template(key):
     search_and_click("images\\file.png", go_back = False)
     while not found("images\\open.png"):
         pyautogui.click()
-    search_and_click("images\\open.png", go_back = False)
+    sleep(0.1)
+    pyautogui.hotkey('o')
+    # search_and_click("images\\open.png", go_back = False)
     copy("C:\\Users\\ghopper\\Desktop\\stamps\\new computer\\{0}".format(settings[key]))
     pyautogui.hotkey("ctrl", "v")
     pyautogui.hotkey("enter")
@@ -111,8 +115,7 @@ def open_template(key):
 
 def send_job():
     click_if_exists("images\\execute.png")
-    click_if_exists("images\\start.png")
-    sleep(0.3)
+    click_if_exists("images\\ok.PNG")
     click_if_exists("images\\start.png")
 
 currently_down = False
