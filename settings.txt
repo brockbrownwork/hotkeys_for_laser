@@ -1,6 +1,6 @@
-1:10k
-2:14K
-3:925
+1:10k gold
+2:14K gold
+3:925 silver
 4:925 10K
 5:THE LE
 6:ppf
