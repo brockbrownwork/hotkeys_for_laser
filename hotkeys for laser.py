@@ -39,23 +39,31 @@ def change_text():
 def search():
     files = listdir("C:\\Users\\ghopper\\Desktop\\stamps\\new computer")
     query = pyautogui.prompt(text = "What template do you need?")
-    found_file = ''
+    found_files = []
+    exact_file = None
+    found_file = None
     if not query:
         return None
     for file in files:
         if query.lower() in file.lower():
-            found_file = file
-            break
+            found_files.append(file)
     if query.lower() in [i.split('.')[0].lower() for i in files]:
-        found_file = query
-    if found_file != '':
+        exact_file = query
+    if exact_file:
+        found_file = exact_file
+    elif len(found_files) == 1:
+        found_file = found_files[0]
+    elif len(found_files) > 1:
+        choice = int(pyautogui.prompt(text = "Which one you want? " + str(found_files)))
+        found_file = found_files[choice - 1]
+    if found_file: # TODO: finish this update for search
         search_and_click("images\\file.png", go_back = False)
         while not found("images\\open.png"):
             pyautogui.click()
         sleep(0.1)
         pyautogui.hotkey("o")
         # search_and_click("images\\open.png", go_back = False)
-        copy("C:\\Users\\ghopper\\Desktop\\stamps\\new computer\\{0}".format(found_file))
+        copy(f"C:\\Users\\ghopper\\Desktop\\stamps\\new computer\\{found_file}")
         pyautogui.hotkey("ctrl", "v")
         pyautogui.hotkey("enter")
         search_and_click("images\\surface.png")
