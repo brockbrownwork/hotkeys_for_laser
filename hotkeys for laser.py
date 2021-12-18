@@ -54,7 +54,10 @@ def search():
     elif len(found_files) == 1:
         found_file = found_files[0]
     elif len(found_files) > 1:
-        choice = int(pyautogui.prompt(text = "Which one you want? " + str(found_files)))
+        prompt = 'Which one you want?\n'
+        for i, file in enumerate(found_files):
+            prompt += f'{i + 1}: {file}\n'
+        choice = int(pyautogui.prompt(text = prompt))
         found_file = found_files[choice - 1]
     if found_file: # TODO: finish this update for search
         search_and_click("images\\file.png", go_back = False)
