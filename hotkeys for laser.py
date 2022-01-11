@@ -95,6 +95,9 @@ def flip_stamp():
     sleep(0.1)
     pyautogui.hotkey("ctrl", "v")
     pyautogui.hotkey("enter")
+    click_if_exists("images\\execute.png")
+    click_if_exists("images\\show_position_start.png")
+    search_and_click("images\\right_arrow.png", go_back = False)
 
 def toggle_door():
     if found("images\\question_door.png"):
@@ -129,34 +132,43 @@ def send_job():
     click_if_exists("images\\start.png", double = True)
     click_if_exists("images\\ok.PNG")
 
-currently_down = False
-start = time()
+
+def main():
+    currently_down = False
+    start = time()
+    while True:
+        sleep(0.05)
+        # make sure that the computer stays awake by pressing F15 every 10 minutes
+        if time() - start >= 60 * 5:
+            start = time()
+            pyautogui.hotkey("F15")
+            print("pressed F15 to stay awake")
+        # toggle the door if ctrl + d is pressed
+        if keyboard.is_pressed('ctrl + d') and not currently_down:
+            currently_down = True
+            toggle_door()
+        elif not keyboard.is_pressed('ctrl + d') and currently_down:
+            currently_down = False
+        # flip the stamp if ctrl + shift + f is pressed
+        if keyboard.is_pressed("ctrl + shift + f"):
+            flip_stamp()
+        # open respective template if ctrl + [custom character] is pressed
+        for key in settings.keys():
+            if keyboard.is_pressed('ctrl + {0}'.format(key)):
+                open_template(key)
+        # start the job if the user hits "ctrl + enter"
+        if keyboard.is_pressed("ctrl + enter"):
+            send_job()
+        if keyboard.is_pressed("ctrl + r"):
+            change_alpha()
+        if keyboard.is_pressed("f2"):
+            search()
+        if keyboard.is_pressed("ctrl + shift + t"):
+            change_text()
+
 while True:
-    sleep(0.05)
-    # make sure that the computer stays awake by pressing F15 every 10 minutes
-    if time() - start >= 60 * 5:
-        start = time()
-        pyautogui.hotkey("F15")
-        print("pressed F15 to stay awake")
-    # toggle the door if ctrl + d is pressed
-    if keyboard.is_pressed('ctrl + d') and not currently_down:
-        currently_down = True
-        toggle_door()
-    elif not keyboard.is_pressed('ctrl + d') and currently_down:
-        currently_down = False
-    # flip the stamp if ctrl + shift + f is pressed
-    if keyboard.is_pressed("ctrl + shift + f"):
-        flip_stamp()
-    # open respective template if ctrl + [custom character] is pressed
-    for key in settings.keys():
-        if keyboard.is_pressed('ctrl + {0}'.format(key)):
-            open_template(key)
-    # start the job if the user hits "ctrl + enter"
-    if keyboard.is_pressed("ctrl + enter"):
-        send_job()
-    if keyboard.is_pressed("ctrl + r"):
-        change_alpha()
-    if keyboard.is_pressed("f2"):
-        search()
-    if keyboard.is_pressed("ctrl + shift + t"):
-        change_text()
+    try:
+        main()
+    except:
+        print("Messed up, restarting...")
+
