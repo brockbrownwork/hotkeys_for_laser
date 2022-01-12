@@ -13,14 +13,6 @@ with open("settings.txt") as f:
         key, file_name = line.split(":")
         settings[key] = file_name
 
-print("Welcome to LZR Hotkeys")
-print("ctrl + d to toggle the door")
-print("ctrl + shift + f to flip a stamp 180 degrees")
-print("ctrl + enter to send the job")
-print("ctrl + r to rotate")
-print("ctrl + shift + t to change the text")
-print("ctrl + [a number] to open a template (see label below keyboard)\n")
-
 def solve_rotational_shenanigans():
     find("images\\closed.png")
     sleep(0.5)
@@ -134,6 +126,13 @@ def send_job():
 
 
 def main():
+    print("Welcome to LZR Hotkeys")
+    print("ctrl + d to toggle the door")
+    print("ctrl + shift + f to flip a stamp 180 degrees")
+    print("ctrl + enter to send the job")
+    print("ctrl + r to rotate")
+    print("ctrl + shift + t to change the text")
+    print("ctrl + [a number] to open a template (see label below keyboard)\n")
     currently_down = False
     start = time()
     while True:
@@ -169,6 +168,6 @@ def main():
 while True:
     try:
         main()
-    except:
-        print("Messed up, restarting...")
+    except Exception as e:
+        print("Messed up ({0}), restarting...".format(e))
 
