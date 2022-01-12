@@ -18,9 +18,13 @@ def show_desktop():
 # if it's not there then just return false
 
 def search_and_click(image_name, double = False, go_back = True, below = 0):
+    timeout = 10 # seconds to try before it gives up
     original_position = pyautogui.position()
     found_it = pyautogui.locateOnScreen(image_name)
+    start = time.time()
     while found_it == None:
+        if time.time() - start >= timeout:
+            raise Exception("Timed out, spent too much time looking for {0}".format(image_name))
         print("looking for", image_name)
         found_it = pyautogui.locateOnScreen(image_name)
     print("found", image_name)
