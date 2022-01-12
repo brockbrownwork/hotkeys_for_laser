@@ -6,7 +6,11 @@ import pyautogui
 from os import listdir
 from tendo import singleton
 
-me = singleton.SingleInstance() # will sys.exit 1 if more than 1 instance
+try:
+    me = singleton.SingleInstance() # will sys.exit 1 if more than 1 instance
+except:
+    pyautogui.alert(title = "hey dummy", text = "It appears there's another instance of this program running.")
+    quit()
 
 settings = {}
 
