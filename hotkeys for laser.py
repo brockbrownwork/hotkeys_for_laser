@@ -103,11 +103,10 @@ def close_door():
         print("found question door")
         search_and_click("images\\question_door.png")
         search_and_click("images\\door.png")
-        solve_rotational_shenanigans()
     elif found("images\\door.png"):
         print("found open door")
         search_and_click("images\\door.png")
-        solve_rotational_shenanigans()
+    solve_rotational_shenanigans()
 
 def toggle_door():
     if found("images\\question_door.png"):
