@@ -98,6 +98,17 @@ def flip_stamp():
     click_if_exists("images\\show_position_start.png")
     search_and_click("images\\right_arrow.png", go_back = False)
 
+def close_door():
+    if found("images\\question_door.png"):
+        print("found question door")
+        search_and_click("images\\question_door.png")
+        search_and_click("images\\door.png")
+        solve_rotational_shenanigans()
+    elif found("images\\door.png"):
+        print("found open door")
+        search_and_click("images\\door.png")
+        solve_rotational_shenanigans()
+
 def toggle_door():
     if found("images\\question_door.png"):
         print("found question door")
@@ -127,9 +138,12 @@ def open_template(key):
     search_and_click("images\\inside_diameter.png")
 
 def send_job():
-    click_if_exists("images\\execute.png")
-    click_if_exists("images\\start.png", double = True)
-    click_if_exists("images\\ok.PNG")
+    close_door()
+    ready = pyautogui.confirm(text = "Send the job?", buttons = ["yes", "no"])
+    if ready == "yes":
+        click_if_exists("images\\execute.png")
+        click_if_exists("images\\start.png", double = True)
+        click_if_exists("images\\ok.PNG")
 
 
 def main():
