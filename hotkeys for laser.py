@@ -69,6 +69,7 @@ def search():
         pyautogui.hotkey("ctrl", "v")
         pyautogui.hotkey("enter")
         search_and_click("images\\surface.png")
+        sleep(0.1)
         search_and_click("images\\inside_diameter.png")
     print("")
 
