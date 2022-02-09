@@ -147,13 +147,6 @@ def send_job():
 
 
 def main():
-    print("Welcome to LZR Hotkeys")
-    print("ctrl + d to toggle the door")
-    print("ctrl + shift + f to flip a stamp 180 degrees")
-    print("ctrl + enter to send the job")
-    print("ctrl + r to rotate")
-    print("ctrl + shift + t to change the text")
-    print("ctrl + [a number] to open a template (see label below keyboard)\n")
     currently_down = False
     start = time()
     while True:
@@ -186,9 +179,20 @@ def main():
         if keyboard.is_pressed("ctrl + shift + t"):
             change_text()
 
-while True:
-    try:
-        main()
-    except Exception as e:
-        print("Messed up ({0}), restarting...".format(e))
+if __name__ == "__main__":
+    print("ctrl + d to toggle the door")
+    print("ctrl + shift + f to flip a stamp 180 degrees")
+    print("ctrl + enter to send the job")
+    print("ctrl + r to rotate")
+    print("ctrl + shift + t to change the text")
+    print("ctrl + [a number] to open a template (see label below keyboard)\n")
+    while True:
+        try:
+            main()
+        except Exception as e:
+            print("Oh, boy: {0}\n".format(e))
+
+
+
+
 
