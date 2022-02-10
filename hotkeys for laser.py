@@ -175,11 +175,11 @@ def main():
         # start the job if the user hits "ctrl + enter"
         if keyboard.is_pressed("ctrl + enter"):
             send_job()
-        if keyboard.is_pressed("ctrl + r"):
+        elif keyboard.is_pressed("ctrl + r"):
             change_alpha()
-        if keyboard.is_pressed("f2"):
+        elif keyboard.is_pressed("f2"):
             search()
-        if keyboard.is_pressed("ctrl + shift + t"):
+        elif keyboard.is_pressed("ctrl + shift + t"):
             change_text()
 
 if __name__ == "__main__":
