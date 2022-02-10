@@ -70,9 +70,7 @@ def search():
         copy(f"C:\\Users\\ghopper\\Desktop\\stamps\\new computer\\{found_file}")
         pyautogui.hotkey("ctrl", "v")
         pyautogui.hotkey("enter")
-        search_and_click("images\\surface.png")
-        sleep(0.3)
-        search_and_click("images\\inside_diameter.png")
+        change_inside_diameter()
     print("")
 
 def change_alpha():
@@ -185,7 +183,6 @@ def main():
         elif keyboard.is_pressed("ctrl + shift + t"):
             change_text()
         elif keyboard.is_pressed("ctrl + i"):
-            # TODO: change inside diameter
             change_inside_diameter()
 
 if __name__ == "__main__":
