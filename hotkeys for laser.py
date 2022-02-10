@@ -125,6 +125,11 @@ def toggle_door():
         print("found closed!")
         search_and_click("images\\closed.png")
 
+def change_inside_diameter():
+    search_and_click("images\\surface.png")
+    sleep(0.3)
+    search_and_click("images\\inside_diameter.png")
+
 def open_template(key):
     print("hotkey pressed:", key)
     search_and_click("images\\file.png", go_back = False)
@@ -136,9 +141,7 @@ def open_template(key):
     copy("C:\\Users\\ghopper\\Desktop\\stamps\\new computer\\{0}".format(settings[key]))
     pyautogui.hotkey("ctrl", "v")
     pyautogui.hotkey("enter")
-    search_and_click("images\\surface.png")
-    sleep(0.3)
-    search_and_click("images\\inside_diameter.png")
+    change_inside_diameter()
 
 def send_job():
     close_door()
@@ -181,6 +184,9 @@ def main():
             search()
         elif keyboard.is_pressed("ctrl + shift + t"):
             change_text()
+        elif keyboard.is_pressed("ctrl + i"):
+            # TODO: change inside diameter
+            change_inside_diameter()
 
 if __name__ == "__main__":
     print("ctrl + d to toggle the door")
