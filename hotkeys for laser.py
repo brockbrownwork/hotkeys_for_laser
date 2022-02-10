@@ -7,7 +7,9 @@ from os import listdir
 from tendo import singleton
 
 try:
-    me = singleton.SingleInstance() # will sys.exit 1 if more than 1 instance
+    # Singleton makes sure that there's only one instance of this program
+    # running at a time so that they don't step on each other's toes
+    me = singleton.SingleInstance()
 except:
     pyautogui.alert(title = "hey dummy", text = "It appears there's another instance of this program running.")
     quit()
@@ -69,7 +71,7 @@ def search():
         pyautogui.hotkey("ctrl", "v")
         pyautogui.hotkey("enter")
         search_and_click("images\\surface.png")
-        sleep(0.1)
+        sleep(0.3)
         search_and_click("images\\inside_diameter.png")
     print("")
 
@@ -135,6 +137,7 @@ def open_template(key):
     pyautogui.hotkey("ctrl", "v")
     pyautogui.hotkey("enter")
     search_and_click("images\\surface.png")
+    sleep(0.3)
     search_and_click("images\\inside_diameter.png")
 
 def send_job():
