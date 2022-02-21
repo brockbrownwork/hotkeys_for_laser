@@ -27,7 +27,6 @@ def solve_rotational_shenanigans():
     sleep(0.5)
     if not found("images\\selected_execute.png"):
         search_and_click("images\\execute.png")
-    search_and_click("images\\show_position_start.png")
     search_and_click("images\\left_arrow.png")
     sleep(0.3)
     search_and_click("images\\right_arrow.png", go_back = False)
@@ -129,7 +128,7 @@ def change_inside_diameter():
     search_and_click("images\\inside_diameter.png")
 
 def open_template(key):
-    print("hotkey pressed:", key)
+    print("hotkey pressed: ctrl + ", key)
     search_and_click("images\\file.png", go_back = False)
     while not found("images\\open.png"):
         pyautogui.click()
@@ -171,7 +170,9 @@ def main():
             print("pressed F15 to stay awake")
         for hotkey in hotkey_to_function:
             if keyboard.is_pressed(hotkey):
+                print(f"{hotkey} pressed!: {hotkey_to_function[hotkey].__name__)
                 hotkey_to_function[hotkey]()
+                print("\n")
         # open respective template if ctrl + [custom character] is pressed
         for key in settings.keys():
             if keyboard.is_pressed('ctrl + {0}'.format(key)):
