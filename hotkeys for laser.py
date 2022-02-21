@@ -147,18 +147,18 @@ def send_job():
         click_if_exists("images\\start.png", double = True)
         click_if_exists("images\\ok.PNG")
 
+hotkey_to_function = {
+        "ctrl + d" : toggle_door,
+        "ctrl + shift + f" : flip_stamp,
+        "ctrl + enter" : send_job,
+        "ctrl + r" : change_alpha,
+        "f2" : search,
+        "ctrl + shift + t" : change_text,
+        "ctrl + i" : change_inside_diameter
+    }
 
 def main():
     start = time()
-    hotkey_to_function = {
-            "ctrl + d" : toggle_door,
-            "ctrl + shift + f" : flip_stamp,
-            "ctrl + enter" : send_job,
-            "ctrl + r" : change_alpha,
-            "f2" : search,
-            "ctrl + shift + t" : change_text,
-            "ctrl + i" : change_inside_diameter
-        }
     while True:
         # wait 1/20th of a second to start again as not to gobble cpu
         sleep(0.05)
@@ -179,11 +179,10 @@ def main():
                 open_template(key)
 
 if __name__ == "__main__":
-    print("ctrl + d to toggle the door")
-    print("ctrl + shift + f to flip a stamp 180 degrees")
-    print("ctrl + enter to send the job")
-    print("ctrl + r to rotate")
-    print("ctrl + shift + t to change the text")
+    print("Hotkeys for LZR")
+    for hotkey in hotkey_to_function:
+        function = hotkey_to_function[hotkey]
+        print(f"{hotkey}: {function.__name__}")
     print("ctrl + [a number] to open a template (see label below keyboard)\n")
     while True:
         try:
