@@ -11,7 +11,8 @@ try:
     # running at a time so that they don't step on each other's toes
     me = singleton.SingleInstance()
 except:
-    pyautogui.alert(title = "hey dummy", text = "It appears there's another instance of this program running.")
+    pyautogui.alert(title = "hey dummy",
+                    text = "There's already one running :)")
     quit()
 
 settings = {}
@@ -180,7 +181,7 @@ def main():
 
 if __name__ == "__main__":
     print("Hotkeys for LZR")
-    for hotkey in hotkey_to_function:
+    for hotkey in sorted(hotkey_to_function):
         function = hotkey_to_function[hotkey]
         print(f"{hotkey}: {function.__name__}")
     print("ctrl + [a number] to open a template (see label below keyboard)\n")
