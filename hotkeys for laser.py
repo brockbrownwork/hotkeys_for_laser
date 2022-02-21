@@ -151,39 +151,31 @@ def send_job():
 
 
 def main():
-    currently_down = False
     start = time()
+    hotkey_to_function = {
+            "ctrl + d" : toggle_door,
+            "ctrl + shift + f" : flip_stamp,
+            "ctrl + enter" : send_job,
+            "ctrl + r" : change_alpha,
+            "f2" : search,
+            "ctrl + shift + t" : change_text,
+            "ctrl + i" : change_inside_diameter
+        }
     while True:
+        # wait 1/20th of a second to start again as not to gobble cpu
         sleep(0.05)
         # make sure that the computer stays awake by pressing F15 every 10 minutes
         if time() - start >= 60 * 5:
             start = time()
             pyautogui.hotkey("F15")
             print("pressed F15 to stay awake")
-        # toggle the door if ctrl + d is pressed
-        if keyboard.is_pressed('ctrl + d') and not currently_down:
-            currently_down = True
-            toggle_door()
-        elif not keyboard.is_pressed('ctrl + d') and currently_down:
-            currently_down = False
-        # flip the stamp if ctrl + shift + f is pressed
-        if keyboard.is_pressed("ctrl + shift + f"):
-            flip_stamp()
+        for hotkey in hotkey_to_function:
+            if keyboard.is_pressed(hotkey):
+                hotkey_to_function[hotkey]()
         # open respective template if ctrl + [custom character] is pressed
         for key in settings.keys():
             if keyboard.is_pressed('ctrl + {0}'.format(key)):
                 open_template(key)
-        # start the job if the user hits "ctrl + enter"
-        if keyboard.is_pressed("ctrl + enter"):
-            send_job()
-        elif keyboard.is_pressed("ctrl + r"):
-            change_alpha()
-        elif keyboard.is_pressed("f2"):
-            search()
-        elif keyboard.is_pressed("ctrl + shift + t"):
-            change_text()
-        elif keyboard.is_pressed("ctrl + i"):
-            change_inside_diameter()
 
 if __name__ == "__main__":
     print("ctrl + d to toggle the door")
