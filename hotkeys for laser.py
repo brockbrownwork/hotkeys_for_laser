@@ -27,9 +27,8 @@ def solve_rotational_shenanigans():
     sleep(0.5)
     if not found("images\\selected_execute.png"):
         search_and_click("images\\execute.png")
-    search_and_click("images\\left_arrow.png")
-    sleep(0.3)
-    search_and_click("images\\right_arrow.png", go_back = False)
+    sleep(0.1)
+    search_and_click("images\\show_position_start.png")
 
 def change_text():
     click_if_exists("images\\layout.png")
@@ -170,9 +169,10 @@ def main():
             print("pressed F15 to stay awake")
         for hotkey in hotkey_to_function:
             if keyboard.is_pressed(hotkey):
-                print(f"{hotkey} pressed!: {hotkey_to_function[hotkey].__name__)
-                hotkey_to_function[hotkey]()
-                print("\n")
+                function = hotkey_to_function[hotkey]
+                print(f"{hotkey} pressed!: {function.__name__}")
+                function()
+                print(f"Done with {function.__name__}!\n")
         # open respective template if ctrl + [custom character] is pressed
         for key in settings.keys():
             if keyboard.is_pressed('ctrl + {0}'.format(key)):
