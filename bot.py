@@ -17,6 +17,17 @@ def show_desktop():
 # pyautogui.locateOnScreen(image_name) # returns position of the image
 # if it's not there then just return false
 
+def hover_over(image_name):
+    '''
+    Moves the mouse over the specified image without clicking.
+    '''
+    found_it = pyautogui.locateOnScreen(image_name)
+    if found_it:
+        x, y = found_it[0], found_it[1]
+        pyautogui.moveTo(x, y)
+    else:
+        print("Couldn't find anything to hover over.")
+
 def search_and_click(image_name, double = False, go_back = True, below = 0):
     timeout = 10 # seconds to try before it gives up
     original_position = pyautogui.position()

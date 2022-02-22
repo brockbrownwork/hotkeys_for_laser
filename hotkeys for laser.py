@@ -1,4 +1,4 @@
-from bot import search_and_click, found, find, click_if_exists
+from bot import search_and_click, found, find, click_if_exists, hover_over
 import keyboard
 from time import sleep, time
 from pyperclip import copy, paste
@@ -34,6 +34,7 @@ def solve_rotational_shenanigans():
         search_and_click("images\\execute.png")
     sleep(0.1)
     search_and_click("images\\show_position_start.png")
+    hover_over("images\\right_arrow.png")
 
 def change_text():
     '''
