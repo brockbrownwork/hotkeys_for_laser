@@ -28,8 +28,6 @@ def solve_rotational_shenanigans():
     This (hopefully) solves the issues with rotating the ring then suddenly
     stamping after the job. >.>
     '''
-    find("images\\closed.png")
-    sleep(0.5)
     if not found("images\\selected_execute.png"):
         search_and_click("images\\execute.png")
     sleep(0.1)
@@ -125,6 +123,8 @@ def close_door():
     elif found("images\\door.png"):
         print("found open door")
         search_and_click("images\\door.png")
+    find("images\\closed.png")
+    sleep(0.5)
     solve_rotational_shenanigans()
 
 def toggle_door():
@@ -135,6 +135,8 @@ def toggle_door():
         print("found question door")
         search_and_click("images\\question_door.png")
         search_and_click("images\\door.png")
+        find("images\\closed.png")
+        sleep(0.5)
         solve_rotational_shenanigans()
     elif found("images\\door.png"):
         print("found open door")
