@@ -24,6 +24,10 @@ with open("settings.txt") as f:
         settings[key] = file_name
 
 def solve_rotational_shenanigans():
+    '''
+    This (hopefully) solves the issues with rotating the ring then suddenly
+    stamping after the job. >.>
+    '''
     find("images\\closed.png")
     sleep(0.5)
     if not found("images\\selected_execute.png"):
@@ -32,11 +36,19 @@ def solve_rotational_shenanigans():
     search_and_click("images\\show_position_start.png")
 
 def change_text():
+    '''
+    Changes the text of the first object in the layout.
+    '''
     click_if_exists("images\\layout.png")
     click_if_exists("images\\text_field.png")
     pyautogui.hotkey("ctrl", "a")
 
 def search():
+    '''
+    Search for a template. Simply type in part of the name of
+    the template you're trying to pull up. Example: 'lov' will pull up the
+    Vera Wang Love stamp.
+    '''
     files = listdir("C:\\Users\\ghopper\\Desktop\\stamps\\new computer")
     query = pyautogui.prompt(text = "What template do you need?")
     found_files = []
@@ -73,6 +85,9 @@ def search():
     print("")
 
 def change_alpha():
+    '''
+    Rotates the stamp (not the ring).
+    '''
     if not found("images\\selected_layout.png"):
         search_and_click("images\\layout.png")
     search_and_click("images\\alpha.png", below = 20, double = True)
@@ -85,6 +100,9 @@ def change_alpha():
     click_if_exists("images\\show_position_start.png")
 
 def flip_stamp():
+    '''
+    Rotates the first object in the layout 180 degrees.
+    '''
     if not found("images\\selected_layout.png"):
         search_and_click("images\\layout.png")
     search_and_click("images\\alpha.png", below = 20, double = True)
@@ -99,6 +117,9 @@ def flip_stamp():
     search_and_click("images\\right_arrow.png", go_back = False)
 
 def close_door():
+    '''
+    Makes sure that the door is shut. This is a helper function for send_job.
+    '''
     if found("images\\question_door.png"):
         print("found question door")
         search_and_click("images\\question_door.png")
@@ -109,6 +130,9 @@ def close_door():
     solve_rotational_shenanigans()
 
 def toggle_door():
+    '''
+    Opens the door if it's shut, closes the door if it's open.
+    '''
     if found("images\\question_door.png"):
         print("found question door")
         search_and_click("images\\question_door.png")
@@ -123,11 +147,18 @@ def toggle_door():
         search_and_click("images\\closed.png")
 
 def change_inside_diameter():
+    '''
+    Goes to the layout, then clicks the inside diameter parameter so that it's
+    ready to change.
+    '''
     search_and_click("images\\surface.png")
     sleep(0.3)
     search_and_click("images\\inside_diameter.png")
 
 def open_template(key):
+    '''
+    Opens the respective template defined by settings.txt, i.e.: ctrl + 1 => 10k template
+    '''
     print("hotkey pressed: ctrl + ", key)
     search_and_click("images\\file.png", go_back = False)
     while not found("images\\open.png"):
@@ -141,6 +172,10 @@ def open_template(key):
     change_inside_diameter()
 
 def send_job():
+    '''
+    Closes the door, fixes rotational shenanigans, then
+    asks the user if they're ready to stamp.
+    '''
     close_door()
     ready = pyautogui.confirm(text = "Send the job?", buttons = ["yes", "no"])
     if ready == "yes":
@@ -159,6 +194,9 @@ hotkey_to_function = {
     }
 
 def main():
+    '''
+    This boots up the hotkey listener, ready to groove.
+    '''
     start = time()
     while True:
         # wait 1/20th of a second to start again as not to gobble cpu
@@ -180,18 +218,17 @@ def main():
                 open_template(key)
 
 if __name__ == "__main__":
-    print("Hotkeys for LZR")
+    justification = 30 # this is how far the columns get pushed apart.
+    print("Hotkeys for LZR\n" + "Function".ljust(justification) + "Hotkey\n" + "=" * (justification + 10))
     for hotkey in sorted(hotkey_to_function):
         function = hotkey_to_function[hotkey]
-        print(f"{hotkey}: {function.__name__}")
-    print("ctrl + [a number] to open a template (see label below keyboard)\n")
+        print((function.__name__ + ' ').ljust(justification - 1, '-') + ' ' + hotkey)
+        if function.__doc__:
+            print(function.__doc__[1:-1])
+
+    print("ctrl + [a number] to open a template (see label below keyboard)")
     while True:
         try:
             main()
         except Exception as e:
             print("Oh, boy: {0}\n".format(e))
-
-
-
-
-
