@@ -97,8 +97,7 @@ def change_alpha():
     prompt = "How many degrees counterclockwise do you want to turn?"
     copy(int(pyautogui.prompt(text = prompt, title = "LZR Hotkeys")) + int(paste()))
     pyautogui.hotkey("ctrl", "v")
-    click_if_exists("images\\execute.png")
-    click_if_exists("images\\show_position_start.png")
+    fix_rotational_shenanigans()
 
 def flip_stamp():
     '''
@@ -161,6 +160,7 @@ def open_template(key):
     Opens the respective template defined by settings.txt, i.e.: ctrl + 1 => 10k template
     '''
     print("hotkey pressed: ctrl + ", key)
+    print("opening {0}...".format(settings[key]))
     search_and_click("images\\file.png", go_back = False)
     while not found("images\\open.png"):
         pyautogui.click()
