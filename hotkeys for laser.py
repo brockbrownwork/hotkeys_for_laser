@@ -97,7 +97,7 @@ def change_alpha():
     prompt = "How many degrees counterclockwise do you want to turn?"
     copy(int(pyautogui.prompt(text = prompt, title = "LZR Hotkeys")) + int(paste()))
     pyautogui.hotkey("ctrl", "v")
-    fix_rotational_shenanigans()
+    solve_rotational_shenanigans()
 
 def flip_stamp():
     '''
@@ -112,9 +112,7 @@ def flip_stamp():
     sleep(0.1)
     pyautogui.hotkey("ctrl", "v")
     pyautogui.hotkey("enter")
-    click_if_exists("images\\execute.png")
-    click_if_exists("images\\show_position_start.png")
-    search_and_click("images\\right_arrow.png", go_back = False)
+    solve_rotational_shenanigans()
 
 def close_door():
     '''
