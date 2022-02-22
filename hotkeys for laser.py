@@ -219,7 +219,7 @@ def main():
 
 if __name__ == "__main__":
     justification = 30 # this is how far the columns get pushed apart.
-    print("Hotkeys for LZR\n" + "Function".ljust(justification) + "Hotkey\n" + "=" * (justification + 10))
+    print("Hotkeys for LZR\n\n" + "Function".ljust(justification) + "Hotkey\n" + "=" * (justification + 10))
     for hotkey in sorted(hotkey_to_function):
         function = hotkey_to_function[hotkey]
         print((function.__name__ + ' ').ljust(justification - 1, '-') + ' ' + hotkey)
