@@ -161,6 +161,7 @@ def open_template(key):
     '''
     print("hotkey pressed: ctrl + ", key)
     print("opening {0}...".format(settings[key]))
+    start = time()
     search_and_click("images\\file.png", go_back = False)
     while not found("images\\open.png"):
         pyautogui.click()
@@ -171,6 +172,8 @@ def open_template(key):
     pyautogui.hotkey("ctrl", "v")
     pyautogui.hotkey("enter")
     change_inside_diameter()
+    execution_time = round(time() - start, 2)
+    print(f"Done opening {settings[key]}, took {execution_time} seconds\n")
 
 def send_job():
     '''
@@ -209,10 +212,12 @@ def main():
             print("pressed F15 to stay awake")
         for hotkey in hotkey_to_function:
             if keyboard.is_pressed(hotkey):
+                start_of_function = time()
                 function = hotkey_to_function[hotkey]
                 print(f"{hotkey} pressed!: {function.__name__}")
                 function()
-                print(f"Done with {function.__name__}!\n")
+                execution_time = round(time() - start_of_function, 2)
+                print(f"Done with {function.__name__}, took {execution_time} seconds\n")
         # open respective template if ctrl + [custom character] is pressed
         for key in settings.keys():
             if keyboard.is_pressed('ctrl + {0}'.format(key)):
@@ -228,6 +233,7 @@ if __name__ == "__main__":
             print(function.__doc__[1:-1])
 
     print("ctrl + [a number] to open a template (see label below keyboard)")
+    # Catch any error, state it, then ~ gracefully ~ restart the program
     while True:
         try:
             main()
