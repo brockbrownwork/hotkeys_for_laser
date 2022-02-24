@@ -29,16 +29,19 @@ def activate_window(window_title):
     # print(titles, regions, windows)
     for i, title in enumerate(titles):
         if window_title in title:
+            print(title)
             win32gui.SetForegroundWindow(windows[i])
-            # print("that's the one, {0}!".format(title))
-            # print(windows[i])
+            print("that's the one, {0}!".format(title))
+            print(windows[i])
             break
 
 # print(titles, regions, windows)
 
 if __name__ == "__main__":
     start = time()
-    activate_window("EasyGUI")
+    activate_window("Easy")
+    sleep(0.1)
+    # activate_window("ControlPanel")
     print("took {0} seconds".format(time() - start))
     input(">")
 
