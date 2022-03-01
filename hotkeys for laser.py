@@ -1,4 +1,4 @@
-from bot import search_and_click, found, find, click_if_exists, hover_over
+from bot import search_and_click, found, find, click_if_exists, hover_over, center_mouse
 import keyboard
 from time import sleep, time
 from pyperclip import copy, paste
@@ -213,6 +213,7 @@ def main():
         for hotkey in hotkey_to_function:
             if keyboard.is_pressed(hotkey):
                 start_of_function = time()
+                center_mouse()
                 function = hotkey_to_function[hotkey]
                 print(f"{hotkey} pressed!: {function.__name__}")
                 function()
@@ -221,6 +222,7 @@ def main():
         # open respective template if ctrl + [custom character] is pressed
         for key in settings.keys():
             if keyboard.is_pressed('ctrl + {0}'.format(key)):
+                center_mouse()
                 open_template(key)
 
 if __name__ == "__main__":
