@@ -9,7 +9,12 @@ def click(x, y):
     pyautogui.click(x=x, y=y)
     time.sleep(0.01)
 
+def center_mouse():
+    x, y = pyautogui.size()
+    pyautogui.moveTo(int(x / 2), int(y / 2))
+
 def show_desktop():
+    # TODO: update this, will not work across different computers
     x, y = 1918, 1079
     click(x=x, y=y)
 
@@ -81,3 +86,6 @@ def found(image_name):
         print("didn't find {0}".format(image_name))
     return bool(pyautogui.locateOnScreen(image_name))
 
+if __name__ == "__main__":
+    # test some stuff
+    center_mouse()
