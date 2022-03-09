@@ -30,7 +30,7 @@ def solve_rotational_shenanigans():
     '''
     if not found("images\\selected_execute.png"):
         search_and_click("images\\execute.png")
-    sleep(0.1)
+    sleep(0.2)
     search_and_click("images\\show_position_start.png")
     hover_over("images\\right_arrow.png")
 
