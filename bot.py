@@ -68,6 +68,8 @@ def click_if_exists(image_name, double = False, go_back = True, below = 0):
             click(x=x, y=y + below)
         if go_back:
             pyautogui.moveTo(*original_position)
+        return True
+    return False
 
 def find(image_name):
     found_it = pyautogui.locateOnScreen(image_name)
