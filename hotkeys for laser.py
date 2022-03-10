@@ -15,8 +15,8 @@ except:
                     text = "There's already one running :)")
     quit()
 
+# Load up the hotkeys defined in "settings.txt", these are ctrl + 1, ...
 settings = {}
-
 with open("settings.txt") as f:
     text = f.read().split("\n")
     for line in text:
@@ -62,20 +62,24 @@ def search():
             found_files.append(file)
     if query.lower() in [i.split('.')[0].lower() for i in files]:
         exact_file = query
+    # if there's a template by the exact name the user typed, give it to em
     if exact_file:
         found_file = exact_file
+    # if there's only one possible candidate, give them that template
     elif len(found_files) == 1:
         found_file = found_files[0]
+    # if there's more than one possibility, give the user a choice
     elif len(found_files) > 1:
         prompt = 'Which one you want?\n'
         for i, file in enumerate(found_files):
             prompt += f'{i + 1}: {file}\n'
         choice = int(pyautogui.prompt(text = prompt))
         found_file = found_files[choice - 1]
-    if found_file: # TODO: finish this update for search
+    # if the template is found, go open the template
+    if found_file:
         search_and_click("images\\file.png", go_back = False)
         while not found("images\\open.png"):
-            pyautogui.click()
+            pyautogui.click() # TODO: good lord, fix this awful code!
         sleep(0.1)
         pyautogui.hotkey("o")
         # search_and_click("images\\open.png", go_back = False)
