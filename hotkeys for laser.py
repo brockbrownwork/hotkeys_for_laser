@@ -55,13 +55,14 @@ def search():
     found_file = None
     if not query:
         return None
-    if len(found_files) == 0:
-        pyautogui.alert(f"There's nothing in here by the name of \"{query}\".", "Ziltch, nada, absolutely nothing")
     for file in files:
         if query.lower() in file.lower():
             found_files.append(file)
     if query.lower() in [i.split('.')[0].lower() for i in files]:
         exact_file = query
+    # if there's no possible candidates, tell the user it couldn't find anything
+    if len(found_files) == 0:
+        pyautogui.alert(f"There's nothing in here by the name of \"{query}\".", "Ziltch, nada, absolutely nothing")
     # if there's a template by the exact name the user typed, give it to em
     if exact_file:
         found_file = exact_file
