@@ -80,7 +80,7 @@ def search():
     if found_file:
         search_and_click("images\\file.png", go_back = False)
         while not found("images\\open.png"):
-            pyautogui.click() # TODO: good lord, fix this awful code!
+            pyautogui.click() # TODO: fix this truly horrendous code
         sleep(0.1)
         pyautogui.hotkey("o")
         # search_and_click("images\\open.png", go_back = False)
@@ -163,7 +163,7 @@ def open_template(key):
     start = time()
     search_and_click("images\\file.png", go_back = False)
     while not found("images\\open.png"):
-        pyautogui.click()
+        pyautogui.click() # TODO: fix this truly horrendous code
     sleep(0.1)
     pyautogui.hotkey('o')
     # search_and_click("images\\open.png", go_back = False)
