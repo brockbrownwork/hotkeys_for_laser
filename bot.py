@@ -76,7 +76,7 @@ def find(image_name):
     found_it = pyautogui.locateOnScreen(image_name)
     start = time.time()
     while found_it == None:
-        if time() - start > timeout:
+        if time.time() - start > timeout:
             raise Exception(f"Timed out, spend too much time looking for {image_name}.")
         found_it = pyautogui.locateOnScreen(image_name)
         print("looking for {0}...".format(image_name))
