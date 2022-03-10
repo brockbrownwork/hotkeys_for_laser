@@ -145,6 +145,7 @@ def toggle_door():
     elif found("images\\closed.png"):
         print("found closed!")
         search_and_click("images\\closed.png")
+        hover_over("images\\right_arrow.PNG")
 
 def change_inside_diameter():
     '''

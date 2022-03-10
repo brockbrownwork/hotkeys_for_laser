@@ -72,8 +72,12 @@ def click_if_exists(image_name, double = False, go_back = True, below = 0):
     return False
 
 def find(image_name):
+    timeout = 10
     found_it = pyautogui.locateOnScreen(image_name)
+    start = time.time()
     while found_it == None:
+        if time() - start > timeout:
+            raise Exception(f"Timed out, spend too much time looking for {image_name}.")
         found_it = pyautogui.locateOnScreen(image_name)
         print("looking for {0}...".format(image_name))
     x, y = found_it[0], found_it[1]
