@@ -116,14 +116,13 @@ def close_door():
     '''
     Makes sure that the door is shut. This is a helper function for send_job.
     '''
-    if found("images\\question_door.png"):
-        print("found question door")
-        search_and_click("images\\question_door.png")
-        search_and_click("images\\door.png")
-    elif found("images\\door.png"):
-        print("found open door")
-        search_and_click("images\\door.png")
-    find("images\\closed.png")
+    timeout = 10
+    start = time()
+    while not found("images\\closed.png"):
+        if time() - start > timeout:
+            raise Exception("Timed out, spent too much time looking for closed.png")
+        click_if_exists("images\\question_door.png")
+        click_if_exists("images\\door.png")
     sleep(0.5)
     solve_rotational_shenanigans()
 
@@ -131,17 +130,9 @@ def toggle_door():
     '''
     Opens the door if it's shut, closes the door if it's open.
     '''
-    if found("images\\question_door.png"):
+    if found("images\\question_door.png") or found("images\\door.png"):
         print("found question door")
-        search_and_click("images\\question_door.png")
-        search_and_click("images\\door.png")
-        find("images\\closed.png")
-        sleep(0.5)
-        solve_rotational_shenanigans()
-    elif found("images\\door.png"):
-        print("found open door")
-        search_and_click("images\\door.png")
-        solve_rotational_shenanigans()
+        close_door()
     elif found("images\\closed.png"):
         print("found closed!")
         search_and_click("images\\closed.png")
