@@ -55,6 +55,8 @@ def search():
     found_file = None
     if not query:
         return None
+    if len(found_files) == 0:
+        pyautogui.alert(f"There's nothing in here by the name of \"{query}\".", "Ziltch, nada, absolutely nothing")
     for file in files:
         if query.lower() in file.lower():
             found_files.append(file)
