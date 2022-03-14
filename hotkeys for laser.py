@@ -5,6 +5,7 @@ from pyperclip import copy, paste
 import pyautogui
 from os import listdir
 from tendo import singleton
+from math import pi
 
 try:
     # Singleton makes sure that there's only one instance of this program
@@ -55,9 +56,12 @@ def search():
     found_file = None
     if not query:
         return None
+    # for each of the files in the directory, figure out which ones have
+    # the query in them
     for file in files:
         if query.lower() in file.lower():
             found_files.append(file)
+    # if the query is exactly equal to a file that exists, just give them that
     if query.lower() in [i.split('.')[0].lower() for i in files]:
         exact_file = query
     # if there's no possible candidates, tell the user it couldn't find anything
@@ -79,8 +83,7 @@ def search():
     # if the template is found, go open the template
     if found_file:
         search_and_click("images\\file.png", go_back = False)
-        while not found("images\\open.png"):
-            pyautogui.click() # TODO: fix this truly horrendous code
+        click_if_exists("images\\blue_file.png")
         sleep(0.1)
         pyautogui.hotkey("o")
         # search_and_click("images\\open.png", go_back = False)
@@ -101,6 +104,43 @@ def change_alpha():
     pyautogui.hotkey("ctrl", "c")
     prompt = "How many degrees counterclockwise do you want to turn?"
     copy(int(pyautogui.prompt(text = prompt, title = "LZR Hotkeys")) + int(paste()))
+    pyautogui.hotkey("ctrl", "v")
+    solve_rotational_shenanigans()
+
+def turn_angle():
+    '''
+    Turns the ring at a specified angle in degrees.
+    '''
+    angle = float(pyautogui.prompt(text = "How far do you want to turn?"))
+    change_inside_diameter()
+    pyautogui.hotkey("ctrl", "c") # todo
+    inside_diameter = float(paste())
+    if not found("images\\selected_layout.png"):
+        search_and_click("images\\layout.png")
+    search_and_click("images\\x.png", below = 20, double = True)
+    pyautogui.hotkey("ctrl", "a")
+    pyautogui.hotkey("ctrl", "c")
+    x_position = float(paste())
+    new_x_position = (angle / 360) * pi * inside_diameter + x_position
+    copy(new_x_position)
+    pyautogui.hotkey("ctrl", "v")
+    print('x_position:', x_position)
+    print("new_x_position:", new_x_position)
+    print("angle:", angle)
+    solve_rotational_shenanigans()
+
+def leap_right():
+    '''
+    Does a mega jump to the right side. # TODO
+    '''
+    distance = 13
+    if not found("images\\selected_layout.png"):
+        search_and_click("images\\layout.png")
+    search_and_click("images\\x.png", below = 20, double = True)
+    pyautogui.hotkey("ctrl", "a")
+    pyautogui.hotkey("ctrl", "c")
+    prompt = "How many degrees counterclockwise do you want to turn?"
+    copy(distance + float(paste()))
     pyautogui.hotkey("ctrl", "v")
     solve_rotational_shenanigans()
 
@@ -162,13 +202,13 @@ def open_template(key):
     print("opening {0}...".format(settings[key]))
     start = time()
     search_and_click("images\\file.png", go_back = False)
-    while not found("images\\open.png"):
-        pyautogui.click() # TODO: fix this truly horrendous code
+    click_if_exists("images\\blue_file.png")
     sleep(0.1)
     pyautogui.hotkey('o')
     # search_and_click("images\\open.png", go_back = False)
     copy("C:\\Users\\ghopper\\Desktop\\stamps\\new computer\\{0}".format(settings[key]))
     pyautogui.hotkey("ctrl", "v")
+    sleep(0.1)
     pyautogui.hotkey("enter")
     change_inside_diameter()
     execution_time = round(time() - start, 2)
@@ -193,7 +233,8 @@ hotkey_to_function = {
         "ctrl + r" : change_alpha,
         "f2" : search,
         "ctrl + shift + t" : change_text,
-        "ctrl + i" : change_inside_diameter
+        "ctrl + i" : change_inside_diameter,
+        "ctrl + l" : turn_angle
     }
 
 def main():
