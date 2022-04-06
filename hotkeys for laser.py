@@ -49,12 +49,16 @@ def search():
     Vera Wang Love stamp.
     '''
     files = listdir("C:\\Users\\ghopper\\Desktop\\stamps\\new computer")
+    # ask for the name of the template
     query = pyautogui.prompt(text = "What template do you need?")
     found_files = []
     exact_file = None
     found_file = None
+    # if the user doesn't say anything, return nothing
     if not query:
         return None
+    # for each of the files in the folder, see if part of the query
+    # is in the file name, then put it in a list
     for file in files:
         if query.lower() in file.lower():
             found_files.append(file)
@@ -83,10 +87,10 @@ def search():
             pyautogui.click() # TODO: fix this truly horrendous code
         sleep(0.1)
         pyautogui.hotkey("o")
-        # search_and_click("images\\open.png", go_back = False)
         copy(f"C:\\Users\\ghopper\\Desktop\\stamps\\new computer\\{found_file}")
         pyautogui.hotkey("ctrl", "v")
         pyautogui.hotkey("enter")
+        # select the inside diameter so the user can change it if they want
         change_inside_diameter()
     print("")
 
@@ -94,11 +98,15 @@ def change_alpha():
     '''
     Rotates the stamp (not the ring).
     '''
+    # if the layout isn't already selected, click it
     if not found("images\\selected_layout.png"):
         search_and_click("images\\layout.png")
+    # click into the alpha parameter, then copy it
     search_and_click("images\\alpha.png", below = 20, double = True)
     pyautogui.hotkey("ctrl", "a")
     pyautogui.hotkey("ctrl", "c")
+    # ask the user how much they'd like to turn, then add that to
+    # the previous alpha value
     prompt = "How many degrees counterclockwise do you want to turn?"
     copy(int(pyautogui.prompt(text = prompt, title = "LZR Hotkeys")) + int(paste()))
     pyautogui.hotkey("ctrl", "v")
@@ -108,8 +116,10 @@ def flip_stamp():
     '''
     Rotates the first object in the layout 180 degrees.
     '''
+    # if layout isn't already selected, click it
     if not found("images\\selected_layout.png"):
         search_and_click("images\\layout.png")
+    # add 180 degrees to the alpha parameter
     search_and_click("images\\alpha.png", below = 20, double = True)
     pyautogui.hotkey("ctrl", "a")
     pyautogui.hotkey("ctrl", "c")
@@ -123,8 +133,9 @@ def close_door():
     '''
     Makes sure that the door is shut. This is a helper function for send_job.
     '''
-    timeout = 10
+    timeout = 15
     start = time()
+    # while the door isn't closed, click the door button
     while not found("images\\closed.png"):
         if time() - start > timeout:
             raise Exception("Timed out, spent too much time looking for closed.png")
