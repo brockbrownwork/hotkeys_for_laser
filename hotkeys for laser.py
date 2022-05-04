@@ -161,9 +161,27 @@ def change_inside_diameter():
     Goes to the layout, then clicks the inside diameter parameter so that it's
     ready to change.
     '''
+    original_offset = -1
+    offset = original_offset
     search_and_click("images\\surface.png")
     sleep(0.3)
+    valid_input = False
+    while not valid_input:
+        try:
+            diameter = pyautogui.prompt(text = "Enter measurement (enter 'f' for flat engraving, 'e' for an enhancer) > ")
+            if diameter.lower() == "f":
+                offset = original_offset * -1
+                continue
+            elif diameter.lower() == "e":
+                offset = original_offset - 1
+                continue
+            diameter = float(diameter)
+            valid_input = True
+            copy(str(round(diameter + offset, 3)))
+        except ValueError as e: # TODO
+            print("Not a valid float, please try again.")
     search_and_click("images\\inside_diameter.png")
+    pyautogui.hotkey("ctrl", "v")
 
 def open_template(key):
     '''
