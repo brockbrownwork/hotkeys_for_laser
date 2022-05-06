@@ -5,6 +5,7 @@ from pyperclip import copy, paste
 import pyautogui
 from os import listdir
 from tendo import singleton
+from difflib import SequenceMatcher
 
 try:
     # Singleton makes sure that there's only one instance of this program
@@ -22,6 +23,12 @@ with open("settings.txt") as f:
     for line in text:
         key, file_name = line.split(":")
         settings[key] = file_name
+
+def similar_function_generator(query):
+    pass # TODO: write a lambda function for this as a sorting key
+    return lambda x: similar(query, x)
+def similar(a, b):
+    return SequenceMatcher(None, a.lower(), b.lower()).ratio()
 
 def solve_rotational_shenanigans():
     '''
@@ -64,9 +71,14 @@ def search():
             found_files.append(file)
     if query.lower() in [i.split('.')[0].lower() for i in files]:
         exact_file = query
-    # if there's no possible candidates, tell the user it couldn't find anything
+    # if there's no possible candidates, give the user a list of the top 10 most similar files
     if len(found_files) == 0:
-        pyautogui.alert(f"There's nothing in here by the name of \"{query}\".", "Ziltch, nada, absolutely nothing")
+        most_similar_files = sorted(files, key = similar_function_generator(query))[::-1]
+        prompt = f"Couldn't find {query}, here are the ten most similar names:\n"
+        for i, file in enumerate(most_similar_files[:10]):
+            prompt += f'{i + 1}: {file}\n'
+        choice = int(pyautogui.prompt(text = prompt))
+        found_file = most_similar_files[choice - 1]
     # if there's a template by the exact name the user typed, give it to em
     if exact_file:
         found_file = exact_file
