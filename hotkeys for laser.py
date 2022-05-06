@@ -289,3 +289,4 @@ if __name__ == "__main__":
             main()
         except Exception as e:
             print("Oh, boy: {0}\n".format(e))
+            print("Restarted gracefully!")
