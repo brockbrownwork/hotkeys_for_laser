@@ -166,12 +166,13 @@ def toggle_door():
     '''
     Opens the door if it's shut, closes the door if it's open.
     '''
-    if found("images\\question_door.png") or found("images\\door.png"):
+    if click_if_exists("images\\question_door.png", double = True)\
+       or click_if_exists("images\\door.png", double = True):
         print("found question door")
         close_door()
-    elif found("images\\closed.png"):
+    elif click_if_exists("images\\closed.png", double = True):
         print("found closed!")
-        search_and_click("images\\closed.png")
+        click_if_exists("images\\closed.png", double = True)
         hover_over("images\\right_arrow.PNG")
 
 last_measurement = 16
