@@ -77,7 +77,10 @@ def search():
         prompt = f"Couldn't find {query}, here are the ten most similar names:\n"
         for i, file in enumerate(most_similar_files[:10]):
             prompt += f'{i + 1}: {file}\n'
-        choice = int(pyautogui.prompt(text = prompt))
+        choice = pyautogui.prompt(text = prompt)
+        if choice == "":
+            choice = 1
+        choice = int(choice)
         found_file = most_similar_files[choice - 1]
     # if there's a template by the exact name the user typed, give it to em
     if exact_file:
@@ -90,7 +93,10 @@ def search():
         prompt = 'Which one you want?\n'
         for i, file in enumerate(found_files):
             prompt += f'{i + 1}: {file}\n'
-        choice = int(pyautogui.prompt(text = prompt))
+        choice = pyautogui.prompt(text = prompt)
+        if choice == "":
+            choice = 1
+        choice = int(choice)
         found_file = found_files[choice - 1]
     # if the template is found, go open the template
     if found_file:
@@ -151,8 +157,8 @@ def close_door():
     while not found("images\\closed.png"):
         if time() - start > timeout:
             raise Exception("Timed out, spent too much time looking for closed.png")
-        click_if_exists("images\\question_door.png")
-        click_if_exists("images\\door.png")
+        click_if_exists("images\\question_door.png", double = True)
+        click_if_exists("images\\door.png", double = True)
     sleep(0.5)
     solve_rotational_shenanigans()
 
