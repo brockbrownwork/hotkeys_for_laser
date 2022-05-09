@@ -1,10 +1,28 @@
+'''
+
+HOTKEYS FOR LASER
+
+Programmed by Brock Brown for Signet Jewelers
+Github repository is located at https://github.com/brockbrownwork/hotkeys_for_laser
+
+'''
+
+
+# this is a wrapper for pyautogui, simplifies some of the function calls
 from bot import search_and_click, found, find, click_if_exists, hover_over, center_mouse
+# this is for detecting keystrokes
 import keyboard
+# for waiting and measuring how long hotkey functions take
 from time import sleep, time
+# for copy/paste functionality
 from pyperclip import copy, paste
+# for clickbotting and emulating keystrokes
 import pyautogui
+# for listing the files in a directory, used in the search function
 from os import listdir
+# this is to make sure that there's only one instance of the program running at a time
 from tendo import singleton
+# this is for the search functionality to figure out how similar one string is to another
 from difflib import SequenceMatcher
 
 try:
@@ -12,6 +30,7 @@ try:
     # running at a time so that they don't step on each other's toes
     me = singleton.SingleInstance()
 except:
+    # Warns the user that there's another instance running and aborts the program
     pyautogui.alert(title = "hey dummy",
                     text = "There's already one running :)")
     quit()
@@ -25,9 +44,12 @@ with open("settings.txt") as f:
         settings[key] = file_name
 
 def similar_function_generator(query):
-    pass # TODO: write a lambda function for this as a sorting key
+    # lambda function generator for the similar function
+    # this is used to allow the "sorted" function to be able to sort by similarity
     return lambda x: similar(query, x)
 def similar(a, b):
+    # this function figures approximates how similar one string is to another
+    # 0 = no similarity, 1 = exact copy
     return SequenceMatcher(None, a.lower(), b.lower()).ratio()
 
 def solve_rotational_shenanigans():
