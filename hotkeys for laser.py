@@ -37,16 +37,9 @@ except:
                     text = "There's already one running :)")
     quit()
 
-def is_float(number):
+def is_type(value, type_name):
     try:
-        float(number)
-        return True
-    except ValueError as e:
-        return False
-def is_int(number):
-    try:
-        int(number)
-        return True
+        type_name(value)
     except ValueError as e:
         return False
 
@@ -117,7 +110,7 @@ def search():
         choice = pyautogui.prompt(text = prompt)
         if choice == "":
             choice = 1
-        elif not is_int(choice):
+        elif not is_type(choice, int):
             return None
         choice = int(choice)
         found_file = most_similar_files[choice - 1]
@@ -170,7 +163,7 @@ def change_alpha():
     # the previous alpha value
     prompt = "How many degrees counterclockwise do you want to turn?"
     command = pyautogui.prompt(text = prompt, title = "LZR Hotkeys")
-    if not is_float(command):
+    if not is_type(command, float):
         return None
     copy(int(command) + int(paste()))
     pyautogui.hotkey("ctrl", "v")
@@ -246,7 +239,7 @@ def change_inside_diameter():
             elif diameter == "":
                 copy(str(last_measurement))
                 break
-            elif not is_float(diameter):
+            elif not is_type(diameter, float):
                 return None
             diameter = float(diameter)
             valid_input = True
