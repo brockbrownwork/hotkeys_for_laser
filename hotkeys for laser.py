@@ -5,6 +5,8 @@ HOTKEYS FOR LASER
 Programmed by Brock Brown for Signet Jewelers
 Github repository is located at https://github.com/brockbrownwork/hotkeys_for_laser
 
+For information, support, or feature requests contact Brock at brockbrownwork@gmail.com
+
 '''
 
 
@@ -34,6 +36,19 @@ except:
     pyautogui.alert(title = "hey dummy",
                     text = "There's already one running :)")
     quit()
+
+def is_float(number):
+    try:
+        float(number)
+        return True
+    except ValueError as e:
+        return False
+def is_int(number):
+    try:
+        int(number)
+        return True
+    except ValueError as e:
+        return False
 
 # Load up the hotkeys defined in "settings.txt", these are ctrl + 1, ...
 settings = {}
@@ -102,6 +117,8 @@ def search():
         choice = pyautogui.prompt(text = prompt)
         if choice == "":
             choice = 1
+        elif not is_int(choice):
+            return None
         choice = int(choice)
         found_file = most_similar_files[choice - 1]
     # if there's a template by the exact name the user typed, give it to em
@@ -148,7 +165,10 @@ def change_alpha():
     # ask the user how much they'd like to turn, then add that to
     # the previous alpha value
     prompt = "How many degrees counterclockwise do you want to turn?"
-    copy(int(pyautogui.prompt(text = prompt, title = "LZR Hotkeys")) + int(paste()))
+    command = pyautogui.prompt(text = prompt, title = "LZR Hotkeys")
+    if not is_float(command):
+        return None
+    copy(int(command) + int(paste()))
     pyautogui.hotkey("ctrl", "v")
     solve_rotational_shenanigans()
 
@@ -222,6 +242,8 @@ def change_inside_diameter():
             elif diameter == "":
                 copy(str(last_measurement))
                 break
+            elif not is_float(diameter):
+                return None
             diameter = float(diameter)
             valid_input = True
             measurement = str(round(diameter + offset, 3))
