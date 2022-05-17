@@ -232,7 +232,9 @@ def change_inside_diameter():
     while not valid_input:
         try:
             diameter = pyautogui.prompt(text = "Enter measurement (press enter to use last measurment, enter 'f' for flat engraving, 'e' for an enhancer) > ")
-            if diameter.lower() == "f":
+            if diameter == None:
+                return None
+            elif diameter.lower() == "f":
                 offset = original_offset * -1
                 continue
             elif diameter.lower() == "e":
