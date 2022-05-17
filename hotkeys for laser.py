@@ -139,9 +139,13 @@ def search():
         found_file = found_files[choice - 1]
     # if the template is found, go open the template
     if found_file:
-        search_and_click("images\\file.png", go_back = False)
+        while True:
+            if click_if_exists("images\\file.png", go_back = False):
+                break
+            if click_if_exists("images\\underlined_file.png", go_back = False):
+                break
         while not found("images\\open.png"):
-            pyautogui.click() # TODO: fix this truly horrendous code
+            pyautogui.click() # TODO: fix this truly horrendous code (YUCK!)
         sleep(0.1)
         pyautogui.hotkey("o")
         copy(f"C:\\Users\\ghopper\\Desktop\\stamps\\new computer\\{found_file}")
