@@ -37,9 +37,11 @@ except:
                     text = "There's already one running :)")
     quit()
 
+# for input validation
 def is_type(value, type_name):
     try:
         type_name(value)
+        return True
     except ValueError as e:
         return False
 
@@ -240,7 +242,8 @@ def change_inside_diameter():
                 copy(str(last_measurement))
                 break
             elif not is_type(diameter, float):
-                return None
+                print("Not a valid input, try again.")
+                continue
             diameter = float(diameter)
             valid_input = True
             measurement = str(round(diameter + offset, 3))
