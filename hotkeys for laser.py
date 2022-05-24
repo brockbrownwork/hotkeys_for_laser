@@ -198,6 +198,9 @@ def close_door():
     while not found("images\\closed.png"):
         if time() - start > timeout:
             raise Exception("Timed out, spent too much time looking for closed.png")
+        if found("images\\could_not_be_closed.PNG"):
+            click_if_exists("images\\ok.png")
+            break
         click_if_exists("images\\question_door.png", double = True)
         click_if_exists("images\\door.png", double = True)
     sleep(0.5)
@@ -224,7 +227,7 @@ def change_inside_diameter():
     ready to change.
     '''
     global last_measurement
-    original_offset = -1
+    original_offset = -0.5
     offset = original_offset
     search_and_click("images\\surface.png")
     sleep(0.3)
