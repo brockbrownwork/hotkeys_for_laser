@@ -199,11 +199,14 @@ def close_door():
         if time() - start > timeout:
             raise Exception("Timed out, spent too much time looking for closed.png")
         if found("images\\could_not_be_closed.PNG"):
-            click_if_exists("images\\ok.png")
             break
-        click_if_exists("images\\question_door.png", double = True)
+        if found("images\\question_door.png"):
+            if found("images\\could_not_be_closed.png"):
+                break
+            click_if_exists("images\\question_door.png", double = True)
         click_if_exists("images\\door.png", double = True)
     sleep(0.5)
+    click_if_exists("images\\ok.png")
     solve_rotational_shenanigans()
 
 def toggle_door():
