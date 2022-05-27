@@ -237,13 +237,23 @@ def change_inside_diameter():
     valid_input = False
     while not valid_input:
         try:
-            diameter = pyautogui.prompt(text = "Enter measurement (press enter to use last measurment, enter 'f' for flat engraving, 'e' for an enhancer) > ")
+            dialogue = "Enter measurement (press enter to use last measurment, enter 'f' for flat engraving, 'e' for an enhancer) > "
+            diameter = pyautogui.prompt(text = dialogue).lower()
             if diameter == None:
                 return None
-            elif diameter.lower() == "f":
+            # format the user's input so that...
+            # - it adds a decimal point where there's one needed
+            # - strips non numerical and non decimal point numbers
+            # - gets rid of double instances of decimal points (common mistake)
+            diameter = ''.join([i for i in diameter if i.isdigit() or i == '.'])
+            while '..' in diameter:
+                diameter = diameter.replace('..', '.')
+            if '.' not in diameter and len(diameter) >= 3:
+                diameter = diameter[0:2] + '.' + diameter[2:]
+            elif diameter == "f":
                 offset = original_offset * -1
                 continue
-            elif diameter.lower() == "e":
+            elif diameter == "e":
                 offset = original_offset - 1
                 continue
             elif diameter == "":
