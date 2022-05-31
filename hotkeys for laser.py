@@ -245,17 +245,17 @@ def change_inside_diameter():
             # - it adds a decimal point where there's one needed
             # - strips non numerical and non decimal point numbers
             # - gets rid of double instances of decimal points (common mistake)
-            diameter = ''.join([i for i in diameter if i.isdigit() or i == '.'])
-            while '..' in diameter:
-                diameter = diameter.replace('..', '.')
-            if '.' not in diameter and len(diameter) >= 3:
-                diameter = diameter[0:2] + '.' + diameter[2:]
-            elif diameter == "f":
+            diameter = ''.join([i for i in diameter if i.isdigit() or i in '.ef'])
+            if diameter == "f":
                 offset = original_offset * -1
                 continue
             elif diameter == "e":
                 offset = original_offset - 1
                 continue
+            while '..' in diameter:
+                diameter = diameter.replace('..', '.')
+            if '.' not in diameter and len(diameter) >= 3:
+                diameter = diameter[0:2] + '.' + diameter[2:]
             elif diameter == "":
                 copy(str(last_measurement))
                 break
