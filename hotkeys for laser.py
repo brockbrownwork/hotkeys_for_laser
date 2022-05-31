@@ -139,7 +139,7 @@ def search():
                 break
             if click_if_exists("images\\underlined_file.png", go_back = False):
                 break
-        while not click_if_exists("images\\open.png"):
+        while not click_if_exists("images\\open.png"): # TODO: add a timeout
             click_if_exists("images\\file.png")
             click_if_exists("images\\underlined_file.png")
         sleep(0.1)
@@ -267,7 +267,7 @@ def change_inside_diameter():
             measurement = str(round(diameter + offset, 3))
             copy(measurement)
             last_measurement = measurement
-        except ValueError as e: # TODO
+        except ValueError as e:
             print("Not a valid float, please try again.")
     search_and_click("images\\inside_diameter.png")
     pyautogui.hotkey("ctrl", "v")
@@ -279,11 +279,11 @@ def open_template(key):
     print("hotkey pressed: ctrl + ", key)
     print("opening {0}...".format(settings[key]))
     start = time()
-    search_and_click("images\\file.png", go_back = False)
-    while not found("images\\open.png"):
-        pyautogui.click() # TODO: fix this truly horrendous code
+    click_if_exists("images\\file.png", go_back = False)
+    while not click_if_exists("images\\open.png"): # TODO: add a timeout
+        click_if_exists("images\\file.png")
+        click_if_exists("images\\underlined_file.png")
     sleep(0.1)
-    pyautogui.hotkey('o')
     # search_and_click("images\\open.png", go_back = False)
     copy("C:\\Users\\ghopper\\Desktop\\stamps\\new computer\\{0}".format(settings[key]))
     pyautogui.hotkey("ctrl", "v")
