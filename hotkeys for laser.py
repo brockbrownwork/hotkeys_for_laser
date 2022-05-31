@@ -139,10 +139,10 @@ def search():
                 break
             if click_if_exists("images\\underlined_file.png", go_back = False):
                 break
-        while not found("images\\open.png"):
-            pyautogui.click() # TODO: fix this truly horrendous code (YUCK!)
+        while not click_if_exists("images\\open.png"):
+            click_if_exists("images\\file.png")
+            click_if_exists("images\\underlined_file.png")
         sleep(0.1)
-        pyautogui.hotkey("o")
         copy(f"C:\\Users\\ghopper\\Desktop\\stamps\\new computer\\{found_file}")
         pyautogui.hotkey("ctrl", "v")
         pyautogui.hotkey("enter")
