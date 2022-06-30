@@ -28,6 +28,8 @@ from tendo import singleton
 from difflib import SequenceMatcher
 # ooh boy threading
 from threading import Thread
+# hotkeys with hooks for threading
+from global_hotkeys import register_hotkeys, start_checking_hotkeys
 
 try:
     # Singleton makes sure that there's only one instance of this program
@@ -316,6 +318,20 @@ hotkey_to_function = {
         "ctrl + shift + t" : change_text,
         "ctrl + i" : change_inside_diameter
     }
+bindings = [
+    [["control", "d"], None, toggle_door],
+    [["control", "shift", "f"], None, flip_stamp],
+    [["control", "enter"], None, send_job],
+    [["control", "r"], None, change_alpha],
+    [["f2"], None, search],
+    [["control", "shift", "t"], None, change_text],
+    [["control", "i"], None, change_inside_diameter]
+    ]
+for key in settings.keys():
+    print(key, settings[key])
+    bindings.append([["control", key], None, lambda: open_template(key)])
+print(bindings)
+register_hotkeys(bindings)
 
 def caffiene():
     while True:
@@ -349,6 +365,18 @@ def main():
                 center_mouse()
                 open_template(key)
 
+
+def new_main():
+    '''
+    Listen for requests and run em
+    Only allow three at a time with no repeats, i.e., no "toggle-door", "flip-stamp", "toggle-door"
+    '''
+    start_checking_hotkeys()
+    while True:
+        pass
+
+
+
 if __name__ == "__main__":
     justification = 30 # this is how far the columns get pushed apart.
     print("Hotkeys for LZR\n\n" + "Function".ljust(justification) + "Hotkey\n" + "=" * (justification + 10))
@@ -362,7 +390,7 @@ if __name__ == "__main__":
     # Catch any error, state it, then ~ gracefully ~ restart the program
     while True:
         try:
-            main()
+            new_main()
         except Exception as e:
             print("Oh, boy: {0}\n".format(e))
             print("Restarted gracefully!")
