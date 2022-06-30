@@ -26,6 +26,8 @@ from os import listdir
 from tendo import singleton
 # this is for the search functionality to figure out how similar one string is to another
 from difflib import SequenceMatcher
+# ooh boy threading
+from threading import Thread
 
 try:
     # Singleton makes sure that there's only one instance of this program
@@ -315,6 +317,15 @@ hotkey_to_function = {
         "ctrl + i" : change_inside_diameter
     }
 
+def caffiene():
+    while True:
+        sleep(60 * 5)
+        pyautogui.hotkey("F15")
+        print("Pressed F15 to stay awake!")
+morning_coffee = Thread(target = caffiene)
+morning_coffee.start()
+
+
 def main():
     '''
     This boots up the hotkey listener, ready to groove.
@@ -323,11 +334,6 @@ def main():
     while True:
         # wait 1/20th of a second to start again as not to gobble cpu
         sleep(0.05)
-        # make sure that the computer stays awake by pressing F15 every 10 minutes
-        if time() - start >= 60 * 5:
-            start = time()
-            pyautogui.hotkey("F15")
-            print("pressed F15 to stay awake")
         for hotkey in hotkey_to_function:
             if keyboard.is_pressed(hotkey):
                 start_of_function = time()
