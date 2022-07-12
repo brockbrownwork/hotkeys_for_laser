@@ -28,6 +28,9 @@ from tendo import singleton
 from difflib import SequenceMatcher
 # ooh boy threading
 from threading import Thread
+# alright let's try queueing again
+from global_hotkeys import register_hotkeys, start_checking_hotkeys
+from queue import Queue
 
 try:
     # Singleton makes sure that there's only one instance of this program
@@ -243,6 +246,7 @@ def change_inside_diameter():
             diameter = pyautogui.prompt(text = dialogue)
             if diameter == None:
                 return None
+            diameter = ''.join([i for i in diameter if i.isdigit() or i == '.'])
             diameter = diameter.lower()
             # format the user's input so that...
             # - it adds a decimal point where there's one needed
@@ -270,7 +274,7 @@ def change_inside_diameter():
             measurement = str(round(diameter + offset, 3))
             copy(measurement)
             last_measurement = measurement
-        except ValueError as e: # TODO
+        except ValueError as e:
             print("Not a valid float, please try again.")
     search_and_click("images\\inside_diameter.png")
     pyautogui.hotkey("ctrl", "v")
@@ -317,6 +321,19 @@ hotkey_to_function = {
         "ctrl + i" : change_inside_diameter
     }
 
+
+bindings = []
+for hotkey in hotkey_to_function:
+    combo = [thing.strip() for thing in hotkey.split("+")]
+    for index, thing in enumerate(combo):
+        if thing == 'ctrl':
+            combo[index] = 'control'
+    print('combo: ', combo)
+    bindings.append([combo, None, lambda: add_to_queue(hotkey_to_function[hotkey])])
+register_hotkeys(bindings)
+# start_checking_hotkeys() TODO
+
+
 def caffiene():
     while True:
         sleep(60 * 5)
@@ -325,6 +342,13 @@ def caffiene():
 morning_coffee = Thread(target = caffiene)
 morning_coffee.start()
 
+hotkey_queue = Queue(maxsize = 3)
+def add_to_queue(thing):
+    if not hotkey_queue.full():
+        hotkey_queue.put(thing)
+def hotkey_handler():
+    while True:
+        print(hotkey_queue.get())
 
 def main():
     '''
